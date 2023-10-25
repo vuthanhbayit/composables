@@ -1,8 +1,8 @@
 {
-  "name": "packageName",
+  "name": "@vt7/composables",
   "version": "0.0.0",
   "description": "",
-  "repository": "@vt7/packageName",
+  "repository": "@vt7/composables",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
@@ -23,16 +23,22 @@
     "build": "unbuild",
     "dev": "vitest dev",
     "play": "jiti playground",
-    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
-    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs --ignore-path .gitignore . && prettier -c src test",
+    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs --ignore-path .gitignore . --fix && prettier -c src test -w",
     "prepack": "pnpm run build",
-    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
-    "test": "pnpm lint && pnpm test:types && vitest run --coverage",
+    "release": "changelogen --release && npm publish && git push --follow-tags",
     "test:types": "tsc --noEmit --skipLibCheck",
     "prepublishOnly": "pnpm build"
   },
+  "dependencies": {
+    "@vt7/utils": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@vueuse/core": ">=10.0.0",
+    "vue": ">=3.0.0 || >=2.7.0"
+  },
   "devDependencies": {
-    "@types/node": "^20.8.2",
+    "@types/node": "^20.8.8",
     "@vitest/coverage-v8": "^0.34.6",
     "changelogen": "^0.5.5",
     "eslint": "^8.52.0",
