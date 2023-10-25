@@ -1,4 +1,4 @@
-import { ref, unref, type Ref, type MaybeRef } from 'vue'
+import { ref, unref, type Ref } from 'vue'
 import { eagerComputed } from '@vueuse/core'
 import { cloneDeep, isArray, isEqual, isObject } from '@vt7/utils'
 
@@ -8,9 +8,9 @@ type Result<T> = {
   isChanged: Readonly<Ref<boolean>>
 }
 
-export const autoResetRef = <T>(defaultValue: MaybeRef<T>): Result<T> => {
+export const useResetRef = <T>(defaultValueFn: () => T): Result<T> => {
   const getDefaultValue = (): T => {
-    const value = unref(defaultValue)
+    const value = defaultValueFn()
 
     return isObject(value) || isArray(value) ? cloneDeep(value) : value
   }

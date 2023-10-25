@@ -7,7 +7,7 @@
 
 ### 🩹 Fixes
 
-- Get default value in autoResetRef (d224404)
+- Get default value in useResetRef (d224404)
 
 ### ❤️ Contributors
 
