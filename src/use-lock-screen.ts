@@ -1,17 +1,16 @@
-import { type Ref } from 'vue'
-import { isBrowser } from '@vt7/utils'
 import { createSharedComposable } from '@vueuse/core'
+import { isBrowser } from '@vt7/utils'
 
 const getScrollBarWidth = () => {
   return window.innerWidth - document.body.clientWidth
 }
 
-export const useLockScreen = createSharedComposable((trigger: Ref<boolean>) => {
+export const useLockScreen = createSharedComposable(() => {
   let subscribers = 0
   let isScroll = true
 
-  const hidden = () => {
-    if (!trigger.value || !isBrowser) {
+  const onHiddenScrollBar = () => {
+    if (!isBrowser) {
       return
     }
 
@@ -27,11 +26,8 @@ export const useLockScreen = createSharedComposable((trigger: Ref<boolean>) => {
     isScroll = false
   }
 
-  const scroll = () => {
-    if (!trigger.value || !isBrowser) {
-      return
-    }
-    if (isScroll) {
+  const onShowScrollBar = () => {
+    if (!isBrowser || isScroll) {
       return
     }
 
@@ -48,7 +44,7 @@ export const useLockScreen = createSharedComposable((trigger: Ref<boolean>) => {
   }
 
   return {
-    hidden,
-    scroll,
+    onHiddenScrollBar,
+    onShowScrollBar,
   }
 })
